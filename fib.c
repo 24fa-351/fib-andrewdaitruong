@@ -8,35 +8,35 @@ int fib_rec(int);
 
 int main(int argc, char *argv[]) {
 
+   if (argc < 4) return 1;
+   int r = atoi(argv[1]);
+   char *mode = argv[2];
+   char *filename = argv[3];
+   
    //inputting file name along with opening the file to scan
-   char filename[100];
-   printf("Enter filename here: \n");
-   scanf("%99s", filename);
-
-   //opens and reads the file content
    FILE *file = fopen(filename, "r");
+   if (!file) return 1;
+
    char file_content[100];
-   if (fgets(file_content, sizeof(file_content), file) != NULL)
-      fclose(file);
+   if (fgets(file_content, sizeof(file_content), file) == NULL)
+      {
+         fclose(file);
+         return 1;
+      }
+   fclose(file);
 
    //reads the string as an integer
    int file_number = atoi(file_content);
-    
-   //User inputs a number
-   int i;
-   printf("1st number: ", "\n");
-   scanf("%d", &i);
 
    //Timing the event of the addition of the integers
    clock_t start_time = clock();
-   int n_number = i + file_number;
-   int result = fib_rec(n_number);
+   int n_number = r + file_number;
+   int result = fib_rec(n_number - 1);
    clock_t end_time = clock();
    double function_timer = (double)(end_time - start_time) / CLOCKS_PER_SEC * 1000.0;
 
    //simple print function for output
-   printf("Fibonacci of %d is %d\n", n_number, result);
-   printf("Time taken: %.1f millisecond\n", function_timer);
+   printf("%d\n", result);
    return 0;
 }
 
