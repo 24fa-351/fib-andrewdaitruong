@@ -14,7 +14,8 @@ else
 fi
 
 if [ "$output" == "$expected_output" ] ; then
-  echo "Pass: Output is correct"
+  echo "Pass: Output is correct
+  echo "It took $SECONDS seconds for this script to execute.""
 else
   echo "Expected '$expected_output' but got: $output"
   exit 1
